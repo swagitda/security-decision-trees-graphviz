@@ -1,0 +1,87 @@
+digraph {
+	// Base Styling
+	rankdir="TB";
+	splines=true;
+	overlap=false;
+	nodesep="0.2";
+	ranksep="0.4";
+	label="Attack Tree - Branch 03";
+	labelloc="t";
+	fontname="Lato";
+	node [ shape="plaintext" style="filled, rounded" fontname="Lato" margin=0.2 ]
+	edge [ fontname="Lato" color="#2B303A" ]
+
+	// List of Nodes
+
+	// base nodes
+	reality [ label="Reality" fillcolor="#2B303A" fontcolor="#ffffff" ]
+	attack_win [ label="Access video\nrecordings in\nS3 bucket\n(attackers win)" fillcolor="#DB2955" fontcolor="#ffffff" ]
+
+  	// attack nodes
+  	node [ color="#ED96AC" ]
+	attack_1 [ label="API cache\n(e.g. Wayback\nMachine)" color="#C6CCD2" ]
+	attack_2 [ label="AWS public\nbuckets search" ]
+	attack_3 [ label="S3 bucket\nset to public" color="#C6CCD2" ]
+	attack_4 [ label="Brute force" ]
+	attack_5 [ label="Phishing" ]
+	attack_6 [ label="Compromise\nuser credentials" ]
+	attack_7 [ label="Subsystem with\naccess to\nbucket data" color="#C6CCD2" ]
+	attack_8 [ label="Manually analyze\nweb client for access\ncontrol misconfig" ]
+
+	// defense nodes
+	node [ color="#ABD2FA" ]
+	defense_1 [ label="Disallow\ncrawling\non site maps" ]
+	defense_2 [ label="Auth required / ACLs\n(private bucket)" ]
+	defense_3 [ label="Lock down\nweb client with\ncreds / ACLs" ]
+	defense_4 [ label="Perform all access\ncontrol server-side" ]
+
+	// List of Edges
+
+	// branch 1 edges
+	// this starts from the reality node and connects with the first "attack",
+	// which is really just taking advantage of #yolosec (big oof)
+	reality -> attack_1 [ xlabel="#yolosec" fontcolor="#DB2955" ]
+	attack_1 -> attack_win	
+
+	// branch 2 edges
+	// this connects the reality node to the first mitigation, 
+	// which helps avoid the #yolosec path from branch 1
+	reality -> defense_1
+	defense_1 -> attack_2
+	attack_2 -> attack_3 [ xlabel="#yolosec" fontcolor="#DB2955" ]
+	attack_3 -> attack_win
+
+	// branch 3 edges
+	// this connects the reality node to another mitigation,
+	// which helps avoid the #yolosec path from branch 2
+	reality -> defense_2
+	defense_2 -> attack_4
+	defense_2 -> attack_5
+	attack_4 -> attack_6
+	attack_5 -> attack_6
+	attack_6 -> attack_7
+	attack_7 -> attack_win
+	// potential mitigation path
+	attack_7 -> defense_3
+	defense_3 -> attack_8
+	attack_8 -> attack_win
+	// potential mitigation path
+	attack_8 -> defense_4 
+	defense_4 -> attack_5 [ style="dashed" color="#7692FF" ]
+	
+	// Subgraphs / Clusters
+
+	// these clusters enforce the correct hierarchies
+	subgraph initialstates {
+    	rank=same;
+    	attack_1;
+    	defense_1;
+    	defense_2;
+  	}
+	subgraph authrequired {
+    	rank=same;
+    	attack_4;
+    	attack_5;
+  	}
+  	
+}

@@ -1,0 +1,35 @@
+digraph {
+	// Base Styling
+	rankdir="TB";
+	splines=true;
+	overlap=false;
+	nodesep="0.2";
+	ranksep="0.4";
+	label="Attack Tree - Branch 01";
+	labelloc="t";
+	fontname="Lato";
+	node [ shape="plaintext" style="filled, rounded" fontname="Lato" margin=0.2 ]
+	edge [ fontname="Lato" color="#2B303A" ]
+
+	// List of Nodes
+
+	// base nodes
+	reality [ label="Reality" fillcolor="#2B303A" fontcolor="#ffffff" ]
+	attack_win [ label="Access video\nrecordings in\nS3 bucket\n(attackers win)" fillcolor="#DB2955" fontcolor="#ffffff" ]
+
+  	// attack nodes
+  	node [ color="#ED96AC" ]
+	attack_1 [ label="API cache\n(e.g. Wayback\nMachine)" color="#C6CCD2" ]
+
+	// defense nodes
+	node [ color="#ABD2FA" ]
+
+	// List of Edges
+
+	// branch 1 edges
+	// this starts from the reality node and connects with the first "attack",
+	// which is really just taking advantage of #yolosec (big oof)
+	reality -> attack_1 [ xlabel="#yolosec" fontcolor="#DB2955" ]
+	attack_1 -> attack_win	
+
+}
