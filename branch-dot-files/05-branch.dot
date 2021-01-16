@@ -1,3 +1,8 @@
+// Branch 5 Commentary
+// Attackers can also try the even harder option of compromising admin credentials in AWS specifically. 
+// With 2FA as a potential mitigation again, this short branch intersects back with branch 4 pretty quickly. 
+// We only add one new attack node in this branch (attack_13).
+
 digraph {
 	// Base Styling
 	rankdir="TB";

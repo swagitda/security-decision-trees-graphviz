@@ -1,3 +1,13 @@
+// Branch 4 Commentary
+// Since we sent the attackers back to the phishing step with our last mitigation in the third branch,
+// this branch will start at the "Phishing" node rather than the "Reality" node.
+// Attackers will now have to try something a bit harder -- phishing admin credentials (attack_6).
+// But that can potentially be obstructed by two-factor authentication ("2FA") (defense_5),
+// which will force attackers to try to intercept 2FA (attack_10).
+// Attackers can then SSH to an accessible machine (attack_11), which can be countered with
+// IP allowlists (defense_6). In response, attackers can perform lateral movement to a machine
+// with access to the target bucket (attack_12).
+
 digraph {
 	// Base Styling
 	rankdir="TB";

@@ -1,3 +1,17 @@
+// Branch 7 Commentary
+// The prior branch (branch 6) leads to a dead end with the mitigation of disallowing the use of URLs to access buckets.
+// In reality, attackers won't stop there.
+// Most likely, they will try to perform reconnaissance on your S3 footprint (attack_16)
+// to find systems with read or write access to your target bucket (attack_17).
+// In fact, the defense node representing 2FA on branch 4 also links to the attack node of performing S3 bucket recon,
+// as it reflects a likely attacker response to encountering 2FA.
+// We can potentially mitigate this new attack path by disallowing read / write ("R/W") access
+// to our target bucket from any public system (defense_9).
+// In response, attackers may either try to phish more creds or escalate to the easiest exploitation option: 
+// exploiting a known vulnerability ("vuln") in a third party library (attack_18). 
+// But, we can potentially mitigate that action by performing code checking or vuln scanning
+// on our third party components (defense_10).
+
 digraph {
 	// Base Styling
 	rankdir="TB";

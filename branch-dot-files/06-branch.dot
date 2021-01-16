@@ -1,3 +1,11 @@
+// Branch 6 Commentary
+// If admin creds or AWS admin creds don't work, attackers can next try to compromise presigned URLs 
+// (learn more here: https://docs.aws.amazon.com/AmazonS3/latest/dev/ShareObjectPreSignedURL.html)
+// This branch includes a few different decision forks depending on the mitigations in place.
+// Our new attack node for compromising presigned URLs (attack_14) is met with the mitigation of making the URL short lived (defense_7).
+// This mitigation is met with the attacker response of compromising the URL within a certain time period (attack_15), 
+// which can be mitigated by disallowing the use of URLs to access buckets (defense_8).
+
 digraph {
 	// Base Styling
 	rankdir="TB";
